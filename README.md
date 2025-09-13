@@ -98,7 +98,7 @@ Each workflow comes with a JSON file you can import into n8n.
 ⚠️ Note: Sentiment analysis requires API setup.  
 👉 I offer support to make it production-ready.
 
-
+---
 
 ## 👨‍💻 Author
 
