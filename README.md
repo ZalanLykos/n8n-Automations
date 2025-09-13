@@ -13,6 +13,7 @@ Each workflow comes with a JSON file you can import into n8n.
 - [📅 Social Media Auto-Scheduler](#-social-media-auto-scheduler)
 - [💾 Weekly Data Backup Automation](#-weekly-data-backup-automation)
 - [💬 Customer Feedback Sentiment Analyzer](#-customer-feedback-sentiment-analyzer)
+- [📊 Invoice-to-Cashflow Automation](#-invoice-to-cashflow-automation)
 
 ---
 
@@ -97,6 +98,24 @@ Each workflow comes with a JSON file you can import into n8n.
 
 ⚠️ Note: Sentiment analysis requires API setup.  
 👉 I offer support to make it production-ready.
+
+---
+
+## 📊 Invoice-to-Cashflow Automation
+**Description:** Advanced workflow that takes invoices from email, extracts details, stores them in Google Sheets, updates a financial dashboard, and generates cashflow projections.  
+**Business Value:** Saves **~15 hours/month** and gives **real-time cashflow visibility** – something most businesses pay accountants for.
+
+**Workflow file:** [invoice-to-cashflow.json](./invoice-to-cashflow.json)
+
+### 🚀 How to Use
+1. Import JSON into n8n.  
+2. Connect your email inbox, Google Sheets, and dashboarding tool (Looker, Data Studio, etc).  
+3. Adjust cashflow formulas to fit your business.  
+4. Activate and test with a real invoice.  
+
+⚠️ Note: Projection logic is **template only** – customization is required.  
+👉 Contact me for a full financial-grade setup.
+
 
 ---
 
