@@ -1,0 +1,125 @@
+{
+  "name": "Data Backup Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "triggerTimes": [
+          {
+            "hour": 2,
+            "minute": 0
+          }
+        ]
+      },
+      "id": "1",
+      "name": "Nightly Scheduler",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "sheetId": "YOUR_GOOGLE_SHEET_ID",
+        "range": "Records!A:Z",
+        "options": {
+          "valueRenderOption": "UNFORMATTED_VALUE"
+        }
+      },
+      "id": "2",
+      "name": "Fetch Data",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 1,
+      "position": [500, 300],
+      "credentials": {
+        "googleApi": "Google Account"
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const rows = items[0].json.values;\nconst headers = rows.shift();\n\nconst data = rows.map(r => {\n  let obj = {};\n  headers.forEach((h, i) => obj[h] = r[i]);\n  return obj;\n});\n\nreturn [{ json: { backup: JSON.stringify(data, null, 2) } }];"
+      },
+      "id": "3",
+      "name": "Convert to JSON",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [800, 300]
+    },
+    {
+      "parameters": {
+        "path": "backups/business-records-{{new Date().toISOString().split('T')[0]}}.json",
+        "binaryData": false,
+        "dataPropertyName": "backup"
+      },
+      "id": "4",
+      "name": "Save to Dropbox",
+      "type": "n8n-nodes-base.dropbox",
+      "typeVersion": 1,
+      "position": [1100, 300],
+      "credentials": {
+        "dropboxApi": "Dropbox Account"
+      }
+    },
+    {
+      "parameters": {
+        "channel": "#ops",
+        "text": "✅ Backup complete for {{$json[\"path\"] || \"business records\"}} at {{new Date().toLocaleString()}}"
+      },
+      "id": "5",
+      "name": "Notify on Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 1,
+      "position": [1400, 300],
+      "credentials": {
+        "slackApi": "Slack Account"
+      }
+    }
+  ],
+  "connections": {
+    "Nightly Scheduler": {
+      "main": [
+        [
+          {
+            "node": "Fetch Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Data": {
+      "main": [
+        [
+          {
+            "node": "Convert to JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to JSON": {
+      "main": [
+        [
+          {
+            "node": "Save to Dropbox",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save to Dropbox": {
+      "main": [
+        [
+          {
+            "node": "Notify on Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "1"
+}

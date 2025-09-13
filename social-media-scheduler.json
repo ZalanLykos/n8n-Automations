@@ -1,0 +1,146 @@
+{
+  "name": "Social Media Scheduler",
+  "nodes": [
+    {
+      "parameters": {
+        "triggerTimes": [
+          {
+            "hour": 9,
+            "minute": 0
+          }
+        ]
+      },
+      "id": "1",
+      "name": "Daily Scheduler",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "sheetId": "YOUR_GOOGLE_SHEET_ID",
+        "range": "Posts!A:C",
+        "options": {
+          "valueRenderOption": "UNFORMATTED_VALUE"
+        }
+      },
+      "id": "2",
+      "name": "Fetch Posts",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 1,
+      "position": [500, 300],
+      "credentials": {
+        "googleApi": "Google Account"
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const rows = items[0].json.values;\n\n// Assume sheet columns: Text | ImageURL | Status\nconst nextPost = rows.find(r => r[2] !== 'Published');\n\nif (!nextPost) {\n  return [];\n}\n\nreturn [{\n  json: {\n    text: nextPost[0],\n    image: nextPost[1],\n    rowIndex: rows.indexOf(nextPost) + 2 // +2 for header row offset\n  }\n}];"
+      },
+      "id": "3",
+      "name": "Select Next Post",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [800, 300]
+    },
+    {
+      "parameters": {
+        "text": "={{$json[\"text\"]}}",
+        "additionalFields": {}
+      },
+      "id": "4",
+      "name": "Post to Twitter",
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 1,
+      "position": [1100, 200],
+      "credentials": {
+        "twitterOAuth2Api": "Twitter Account"
+      }
+    },
+    {
+      "parameters": {
+        "resource": "post",
+        "operation": "create",
+        "organizationId": "YOUR_LINKEDIN_ORG_ID",
+        "text": "={{$json[\"text\"]}}"
+      },
+      "id": "5",
+      "name": "Post to LinkedIn",
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [1100, 400],
+      "credentials": {
+        "linkedInOAuth2Api": "LinkedIn Account"
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "sheetId": "YOUR_GOOGLE_SHEET_ID",
+        "range": "Posts!C:C",
+        "options": {},
+        "fields": {
+          "values": [
+            "Published"
+          ]
+        }
+      },
+      "id": "6",
+      "name": "Mark as Published",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 1,
+      "position": [1400, 300],
+      "credentials": {
+        "googleApi": "Google Account"
+      }
+    }
+  ],
+  "connections": {
+    "Daily Scheduler": {
+      "main": [
+        [
+          {
+            "node": "Fetch Posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Posts": {
+      "main": [
+        [
+          {
+            "node": "Select Next Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select Next Post": {
+      "main": [
+        [
+          {
+            "node": "Post to Twitter",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Post to LinkedIn",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Mark as Published",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "1"
+}

@@ -1,0 +1,104 @@
+{
+  "name": "CRM Lead Auto-Enrichment",
+  "nodes": [
+    {
+      "parameters": {
+        "sheetId": "YOUR_GOOGLE_SHEET_ID",
+        "range": "Leads!A:C",
+        "options": {
+          "valueRenderOption": "UNFORMATTED_VALUE"
+        }
+      },
+      "id": "1",
+      "name": "New Lead Trigger",
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [200, 300],
+      "credentials": {
+        "googleApi": "Google Account"
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const lead = items[0].json;\n\n// Fake enrichment logic\nlead.companySize = [\"1-10\",\"11-50\",\"51-200\",\"200+\"][Math.floor(Math.random()*4)];\nlead.industry = [\"Finance\",\"Healthcare\",\"Retail\",\"Tech\"][Math.floor(Math.random()*4)];\nlead.linkedin = `https://linkedin.com/in/${lead.name.toLowerCase().replace(/\\s/g,'')}`;\n\nreturn [{ json: lead }];"
+      },
+      "id": "2",
+      "name": "Enrich Lead Data",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "sheetId": "YOUR_GOOGLE_SHEET_ID",
+        "range": "Leads!A:F",
+        "options": {},
+        "fields": {
+          "values": [
+            "={{$json[\"name\"]}}",
+            "={{$json[\"email\"]}}",
+            "={{$json[\"phone\"]}}",
+            "={{$json[\"companySize\"]}}",
+            "={{$json[\"industry\"]}}",
+            "={{$json[\"linkedin\"]}}"
+          ]
+        }
+      },
+      "id": "3",
+      "name": "Update Lead in Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 1,
+      "position": [800, 200],
+      "credentials": {
+        "googleApi": "Google Account"
+      }
+    },
+    {
+      "parameters": {
+        "channel": "#sales-team",
+        "text": "🚀 New Lead Enriched:\nName: {{$json[\"name\"]}}\nEmail: {{$json[\"email\"]}}\nCompany Size: {{$json[\"companySize\"]}}\nIndustry: {{$json[\"industry\"]}}\nLinkedIn: {{$json[\"linkedin\"]}}"
+      },
+      "id": "4",
+      "name": "Send Slack Alert",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 1,
+      "position": [800, 400],
+      "credentials": {
+        "slackApi": "Slack Account"
+      }
+    }
+  ],
+  "connections": {
+    "New Lead Trigger": {
+      "main": [
+        [
+          {
+            "node": "Enrich Lead Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enrich Lead Data": {
+      "main": [
+        [
+          {
+            "node": "Update Lead in Sheet",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send Slack Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "1"
+}

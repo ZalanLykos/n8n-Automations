@@ -1,0 +1,99 @@
+{
+  "name": "Invoice Processing & Slack Alerts",
+  "nodes": [
+    {
+      "parameters": {
+        "protocol": "IMAP",
+        "downloadAttachments": true,
+        "options": {
+          "markAsSeen": true
+        }
+      },
+      "id": "1",
+      "name": "Email Trigger",
+      "type": "n8n-nodes-base.emailReadImap",
+      "typeVersion": 1,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "const attachment = items[0].binary?.data;\n\n// Mock parser (keeps it simple)\nreturn [{\n  json: {\n    invoiceNumber: \"INV-\" + Math.floor(Math.random()*10000),\n    amount: (Math.random()*1000).toFixed(2),\n    vendor: $json[\"from\"] || \"Unknown Vendor\",\n    date: new Date().toISOString().split('T')[0]\n  }\n}];"
+      },
+      "id": "2",
+      "name": "Extract Invoice Data",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "sheetId": "YOUR_GOOGLE_SHEET_ID",
+        "range": "Invoices!A:D",
+        "options": {},
+        "fields": {
+          "values": [
+            "={{$json[\"invoiceNumber\"]}}",
+            "={{$json[\"vendor\"]}}",
+            "={{$json[\"amount\"]}}",
+            "={{$json[\"date\"]}}"
+          ]
+        }
+      },
+      "id": "3",
+      "name": "Save to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 1,
+      "position": [800, 200],
+      "credentials": {
+        "googleApi": "Google Account"
+      }
+    },
+    {
+      "parameters": {
+        "channel": "#finance-alerts",
+        "text": "New Invoice Received 🧾\nInvoice: {{$json[\"invoiceNumber\"]}}\nVendor: {{$json[\"vendor\"]}}\nAmount: ${{$json[\"amount\"]}}\nDate: {{$json[\"date\"]}}"
+      },
+      "id": "4",
+      "name": "Send Slack Alert",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 1,
+      "position": [800, 400],
+      "credentials": {
+        "slackApi": "Slack Account"
+      }
+    }
+  ],
+  "connections": {
+    "Email Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Invoice Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Invoice Data": {
+      "main": [
+        [
+          {
+            "node": "Save to Google Sheets",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send Slack Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "1"
+}
