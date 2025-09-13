@@ -121,7 +121,6 @@ Each workflow comes with a JSON file you can import into n8n.
 
 ## 👨‍💻 Author
 
-**Dktr Dee**  
-*AI Agent & Automation Engineer | Workflow Automation | Business Process Optimization | Cybersecurity Student | Full-Stack Developer*  
+**Zalan Lykos**  
 
 📎 [LinkedIn](https://www.linkedin.com/in/zalanlykos) • [GitHub](https://github.com/ZalanLykos)
