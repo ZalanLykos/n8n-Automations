@@ -1,99 +1,60 @@
-# 💰 Invoice-to-Cashflow Automation (n8n)
+# 🚀 n8n Automation Gallery
 
-An advanced **business process automation** workflow built with [n8n](https://n8n.io).  
-This project automates the **invoice lifecycle** — from receiving an invoice, logging it, checking due dates, sending reminders, updating CRM, creating tasks, and handling errors with real-time notifications.
-
----
-
-## 🚀 Features
-
-- 📩 **Email Trigger** – captures invoices from Gmail automatically  
-- 📄 **PDF Parsing** – extracts amount, client, due date, and invoice ID  
-- 📊 **Google Sheets Logging** – creates a single source of truth for invoices  
-- 🧮 **Decision Logic** – checks if invoices are overdue or not  
-- 🔄 **Multi-Branch Workflow**:
-  - ✅ **Not Due/Paid** → Update HubSpot CRM + Backup in Airtable  
-  - ❌ **Overdue** → Reminder Email + Slack Alert + Trello Task  
-  - ⚠ **Error Handling** → Log in Error Sheet + Telegram Alert  
-- 📲 **Notifications** – Slack for finance team, Trello for collections, Telegram for admins  
-- ♻ **Retry Mechanism** – auto-retries failed reminder emails (3 attempts)  
+A collection of **ready-to-use n8n workflows** for real-world business automation and process optimization.  
+Each workflow comes with a JSON file you can import directly into n8n.
 
 ---
 
-## 📊 Business Impact
+## 📑 Workflows
 
-- ⏳ **20+ hours/month saved** by automating manual invoice tracking  
-- 💸 **40% faster collection** of overdue invoices  
-- 🚫 **0 missed invoices** thanks to automated error handling  
-- 📈 Improved **cash flow predictability**  
-
----
-
-## 🖼 Workflow Overview
-
-```
-📩 Gmail (Invoices) → 📄 PDF Parser → 📊 Google Sheets (Log)  
-                                ↓  
-                         🧮 Check Due Date  
-                                ↓  
-     ┌───────────────┴───────────────┐  
-     ↓                               ↓  
-✅ Not Due/Paid                  ❌ Overdue  
-Update HubSpot CRM              Reminder Email  
-Backup to Airtable              Slack Alert  
-                                Trello Task  
-                                ↳ Retry on Fail  
-                                
-⚠ Error → Error Sheet → Telegram Admin Alert
-```
+- [📄 Invoice Processing & Slack Alerts](#-invoice-processing--slack-alerts)
+- [👥 CRM Lead Auto-Enrichment](#-crm-lead-auto-enrichment)
+- [📅 Social Media Auto-Scheduler](#-social-media-auto-scheduler)
+- [💾 Weekly Data Backup Automation](#-weekly-data-backup-automation)
+- [💬 Customer Feedback Sentiment Analyzer](#-customer-feedback-sentiment-analyzer)
 
 ---
 
-## ⚙️ Tech Stack
+## 📄 Invoice Processing & Slack Alerts
+**Description:** Automates invoice management by extracting invoice data from emails, saving to Google Sheets, and sending real-time Slack alerts.  
+**Business Value:** Saves ~10 hours/month by removing manual entry.
 
-- **n8n** (workflow automation)
-- **Gmail** (trigger source)
-- **PDF Parser** (invoice data extraction)
-- **Google Sheets** (logging & error queue)
-- **HubSpot CRM** (customer lifecycle updates)
-- **Airtable** (backup storage for BI dashboards)
-- **Slack** (finance alerts)
-- **Trello** (collections follow-up tasks)
-- **Telegram** (admin error alerts)
+**Workflow file:** [invoice-automation.json](./invoice-automation.json)
 
 ---
 
-## 📥 Setup Instructions
+## 👥 CRM Lead Auto-Enrichment
+**Description:** Captures new leads from a form/email, enriches them with public data APIs, stores in Google Sheets/CRM, and alerts sales via Slack.  
+**Business Value:** Gives sales teams richer lead data instantly.
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/your-username/invoice-cashflow-automation.git
-   cd invoice-cashflow-automation
-   ```
-
-2. Import the workflow JSON into your **n8n instance**.  
-   - Go to **n8n → Workflows → Import from File**  
-   - Select `workflow.json` from this repo.  
-
-3. Replace placeholders (`{{YOUR_API_KEY}}`, `{{YOUR_SHEET_ID}}`, etc.) with your credentials.  
-
-4. Activate the workflow and test with a sample invoice email.  
+**Workflow file:** [crm-lead-enrichment.json](./crm-lead-enrichment.json)
 
 ---
 
-## 📸 Screenshots
+## 📅 Social Media Auto-Scheduler
+**Description:** Pulls upcoming posts from Google Sheets, formats them, and auto-schedules posts to Twitter/LinkedIn.  
+**Business Value:** Saves marketing teams ~5 hours/week and ensures consistent posting.
 
-*(Add screenshots of your actual workflow from n8n here — it makes the project look alive.)*
+**Workflow file:** [social-media-scheduler.json](./social-media-scheduler.json)
+
+---
+
+## 💾 Weekly Data Backup Automation
+**Description:** Runs weekly to fetch files from Google Drive, compresses them, and uploads to AWS S3 (or another storage).  
+**Business Value:** Prevents data loss with zero manual effort.
+
+**Workflow file:** [data-backup-automation.json](./data-backup-automation.json)
 
 ---
 
-## 🔮 Future Improvements
+## 💬 Customer Feedback Sentiment Analyzer
+**Description:** Collects customer feedback from Google Forms, uses AI sentiment analysis, and stores results in Sheets with weekly Slack summaries.  
+**Business Value:** Gives product teams instant insight into customer mood.
 
-- Integration with accounting tools (e.g., QuickBooks, Xero)  
-- AI-based OCR for messy invoice PDFs  
-- Automatic payment reconciliation  
+**Workflow file:** [customer-feedback-analyzer.json](./customer-feedback-analyzer.json)
 
 ---
+
 
 ## 👨‍💻 Author
 
