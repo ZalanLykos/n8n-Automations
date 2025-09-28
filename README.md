@@ -14,6 +14,7 @@ Each workflow comes with a JSON file you can import into n8n.
 - [💾 Weekly Data Backup Automation](#-weekly-data-backup-automation)
 - [💬 Customer Feedback Sentiment Analyzer](#-customer-feedback-sentiment-analyzer)
 - [📊 Invoice-to-Cashflow Automation](#-invoice-to-cashflow-automation)
+- [🤝 Sponsor Inquiry Automation](#-Sponsor-Inquiry-Automation)
 
 ---
 
@@ -116,6 +117,24 @@ Each workflow comes with a JSON file you can import into n8n.
 ⚠️ Note: Projection logic is **template only** – customization is required.  
 👉 Contact me for a full financial-grade setup.
 
+
+---
+
+## 🤝 Sponsor Inquiry Automation
+**Description:** Workflow that captures sponsorship inquiries via a form, extracts the budget value from text, decides whether to accept or decline based on a threshold, sends a personalized email, and logs the request in Google Sheets.  
+**Business Value:** Saves time by automating sponsor request handling, ensures consistent communication, and keeps a centralized record of all inquiries.
+
+**Workflow file:** [sponsor-inquiry.json](./sponsor-inquiry.json)
+
+### 🚀 How to Use
+1. Import JSON into n8n.  
+2. Connect Gmail and Google Sheets credentials.  
+3. Adjust the **budget threshold** (default: `5000`) in the Decision node.  
+4. Replace placeholder email text with your own templates.  
+5. Activate and test with a form submission.  
+
+⚠️ Note: Decline email contains placeholder wording — update before production use.  
+👉 Extendable to send Slack/Discord notifications or push data into a CRM.  
 
 ---
 
