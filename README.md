@@ -129,9 +129,8 @@ Each workflow comes with a JSON file you can import into n8n.
 ### 🚀 How to Use
 1. Import JSON into n8n.  
 2. Connect Gmail and Google Sheets credentials.  
-3. Adjust the **budget threshold** (default: `5000`) in the Decision node.  
-4. Replace placeholder email text with your own templates.  
-5. Activate and test with a form submission.  
+3. Replace placeholder email text with your own templates.  
+4. Activate and test with a form submission.  
 
 ⚠️ Note: Decline email contains placeholder wording — update before production use.  
 👉 Extendable to send Slack/Discord notifications or push data into a CRM.  
