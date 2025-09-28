@@ -1,0 +1,522 @@
+{
+  "name": "Sponsor Inquiry",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Sponsor Inquiry",
+        "formDescription": "Sponsorship Inquiry and budget",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Company Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Contact Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Website",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Budget",
+              "placeholder": "$",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Notes",
+              "fieldType": "textarea",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -512,
+        64
+      ],
+      "id": "7057f364-6b0f-423c-8b38-859b84e455c0",
+      "name": "On form submission",
+      "webhookId": "f3df6584-7353-40fe-9e2d-943c1fc86384"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1omhxzu_mKm22DBmTwCi0IBKdXOhU8QlIWcWGVUE4Q-8",
+          "mode": "list",
+          "cachedResultName": "Sponsor Inquiry tracker",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1omhxzu_mKm22DBmTwCi0IBKdXOhU8QlIWcWGVUE4Q-8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1omhxzu_mKm22DBmTwCi0IBKdXOhU8QlIWcWGVUE4Q-8/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Company": "={{ $('On form submission').item.json['Company Name'] }}",
+            "Contact Name": "={{ $('On form submission').item.json['Contact Name'] }}",
+            "Email": "={{ $('On form submission').item.json.Email }}",
+            "Website ": "={{ $('On form submission').item.json.Website }}",
+            "Budget": "={{ $('Convert Money field to number').item.json.Budget }}",
+            "Submitted At": "={{ $('On form submission').item.json.submittedAt }}",
+            "Notes": "={{ $('On form submission').item.json.Notes }}",
+            "Decision": "Accept"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Contact Name",
+              "displayName": "Contact Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Website ",
+              "displayName": "Website ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Budget",
+              "displayName": "Budget",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Submitted At",
+              "displayName": "Submitted At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Notes",
+              "displayName": "Notes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Decision",
+              "displayName": "Decision",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        384,
+        -32
+      ],
+      "id": "c205e791-d818-4880-a3be-26cd382e576d",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YGKYQGT8QCHMjY4C",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1omhxzu_mKm22DBmTwCi0IBKdXOhU8QlIWcWGVUE4Q-8",
+          "mode": "list",
+          "cachedResultName": "Sponsor Inquiry tracker",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1omhxzu_mKm22DBmTwCi0IBKdXOhU8QlIWcWGVUE4Q-8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1omhxzu_mKm22DBmTwCi0IBKdXOhU8QlIWcWGVUE4Q-8/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Company": "={{ $('On form submission').item.json['Company Name'] }}",
+            "Contact Name": "={{ $('On form submission').item.json['Contact Name'] }}",
+            "Email": "={{ $('On form submission').item.json.Email }}",
+            "Website ": "={{ $('On form submission').item.json.Website }}",
+            "Budget": "={{ $('On form submission').item.json.Budget }}",
+            "Submitted At": "={{ $('On form submission').item.json.submittedAt }}",
+            "Notes": "={{ $('On form submission').item.json.Notes }}",
+            "Decision": "Decline"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Contact Name",
+              "displayName": "Contact Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Website ",
+              "displayName": "Website ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Budget",
+              "displayName": "Budget",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Submitted At",
+              "displayName": "Submitted At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Notes",
+              "displayName": "Notes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Decision",
+              "displayName": "Decision",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        384,
+        160
+      ],
+      "id": "41250ff0-5492-4bb0-81ca-c1051b388886",
+      "name": "Append row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YGKYQGT8QCHMjY4C",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('On form submission').item.json.Email }}",
+        "subject": "=Hello {{ $('On form submission').item.json['Contact Name'] }}",
+        "emailType": "text",
+        "message": "={{ $('On form submission').item.json['Contact Name'] }}, I see that you need me mate. Sure i can help you out, Let's work together...",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        160,
+        -32
+      ],
+      "id": "0869aab9-64ff-455c-83ce-5d8eefea1d87",
+      "name": "Send Accept Msg",
+      "webhookId": "f1c7c4d1-8b52-4421-9a7d-d6f065fef55e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "js4yuNkkIarS5dtU",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('On form submission').item.json.Email }}",
+        "subject": "=Hello {{ $('On form submission').item.json['Company Name'] }}",
+        "emailType": "text",
+        "message": "={{ $('On form submission').item.json['Contact Name'] }}, How dare you waste my time on this shit, who tf do you think you\nre talking to... are you mad get lost",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        160,
+        160
+      ],
+      "id": "6f2066f0-86c2-4223-b569-984ffd5b45a2",
+      "name": "Send Decline Msg",
+      "webhookId": "f1c7c4d1-8b52-4421-9a7d-d6f065fef55e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "js4yuNkkIarS5dtU",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const str = $input.first().json.Budget;\nconst match = str.match(/\\d+(\\.\\d+)?/); // gets integer or decimal\nreturn [\n  {\n    json: {\n      Budget: match ? Number(match[0]) : null\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -288,
+        64
+      ],
+      "id": "f1eb44ab-2b95-458b-9887-9747109873ba",
+      "name": "Convert Money field to number"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.Budget }}",
+                    "rightValue": 5000,
+                    "operator": {
+                      "type": "number",
+                      "operation": "gte"
+                    },
+                    "id": "4b0293c4-bde7-40af-8cec-6970c159dcfd"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Send Acceptance Mail"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8c84be8c-7670-4e71-acca-8e77de36b525",
+                    "leftValue": "={{ $json.Budget }}",
+                    "rightValue": 5000,
+                    "operator": {
+                      "type": "number",
+                      "operation": "lt"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Send Deline Mail"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -64,
+        64
+      ],
+      "id": "967ec620-7f2a-4fab-8ebe-0719e2601327",
+      "name": "Decision"
+    }
+  ],
+  "pinData": {
+    "On form submission": [
+      {
+        "json": {
+          "Company Name": "SOlas",
+          "Contact Name": "Yammy",
+          "Email": "xcruisermcl@gmail.com",
+          "Website": "Siing.com",
+          "Budget": "i only have $5212",
+          "Notes": "I like wowrking and need work...",
+          "submittedAt": "2025-09-28T06:42:16.422-04:00",
+          "formMode": "test"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Convert Money field to number",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Accept Msg": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Decline Msg": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert Money field to number": {
+      "main": [
+        [
+          {
+            "node": "Decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Decision": {
+      "main": [
+        [
+          {
+            "node": "Send Accept Msg",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send Decline Msg",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b38244f8-1ab2-4f93-b7f5-2e0b144e9668",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ab7d63981a4b61222272c2011e3c2938258b79a97afe6173281c5009bcc2b5ba"
+  },
+  "id": "H2N8l0IWz12qp8nE",
+  "tags": []
+}
