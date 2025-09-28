@@ -426,24 +426,22 @@
       ],
       "id": "967ec620-7f2a-4fab-8ebe-0719e2601327",
       "name": "Decision"
+    },
+    {
+      "parameters": {
+        "content": "Just add in your credentials and you are good to go\nAnd do make sure your APIs etc are setup in google workspace"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -480,
+        -224
+      ],
+      "typeVersion": 1,
+      "id": "fa59006b-074b-46ce-a20a-7e5a93ebee45",
+      "name": "Sticky Note"
     }
   ],
-  "pinData": {
-    "On form submission": [
-      {
-        "json": {
-          "Company Name": "SOlas",
-          "Contact Name": "Yammy",
-          "Email": "xcruisermcl@gmail.com",
-          "Website": "Siing.com",
-          "Budget": "i only have $5212",
-          "Notes": "I like wowrking and need work...",
-          "submittedAt": "2025-09-28T06:42:16.422-04:00",
-          "formMode": "test"
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "connections": {
     "On form submission": {
       "main": [
@@ -512,7 +510,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "b38244f8-1ab2-4f93-b7f5-2e0b144e9668",
+  "versionId": "428bd0ce-2191-4a95-8e56-d487c7c64d51",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "ab7d63981a4b61222272c2011e3c2938258b79a97afe6173281c5009bcc2b5ba"
